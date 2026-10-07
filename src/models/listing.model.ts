@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import type { Listing } from "../schemas/listingSchema";
+import type { Listing } from "../schemas/listing.schema.js";
 
 type ListingDocument = Omit<Listing, "areaId"> & {
     areaId: mongoose.Types.ObjectId;
@@ -42,6 +42,8 @@ const listingSchema = new Schema<ListingDocument>({
         type: String,
         required: true,
     }
+}, {
+    timestamps: true,
 });
 
 export const ListingModel = mongoose.model<ListingDocument>("Listing", listingSchema);

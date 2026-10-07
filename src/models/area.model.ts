@@ -1,11 +1,12 @@
 import mongoose, { Schema } from "mongoose";
-import type { Area } from "../schemas/areaSchema.ts";
+import type { Area } from "../schemas/area.schema.js";
 
 const areaSchema = new Schema<Area>({
     name: {
         type: String,
         required: true,
         trim: true,
+        unique: true,
     },
     noise: {
         type: Number,
@@ -34,6 +35,8 @@ const areaSchema = new Schema<Area>({
         type: String,
         default: null,
     }
+}, {
+    timestamps: true,
 });
 
 // const AreaModel = mongoose.models.Area as mongoose.Model<Area> || mongoose.model<Area>("Area", areaSchema);
