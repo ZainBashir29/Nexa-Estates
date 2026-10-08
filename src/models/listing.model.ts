@@ -10,6 +10,7 @@ const listingSchema = new Schema<ListingDocument>({
         type: String,
         required: true,
         trim: true,
+        unique: true,
     },
     purpose: {
         type: String,
