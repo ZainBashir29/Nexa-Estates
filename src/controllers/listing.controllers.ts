@@ -35,12 +35,29 @@ const getFilteredListings = async (_req: Request, res: Response): Promise<void> 
 
     const filter = buildListingQuery(query);
 
-    if (query.maxNoise) {
-        const areas = await AreaModel.find({ noise: { $lte: query.maxNoise } });
-        const areaIds = areas.map((area) => area._id);
+    const areaFilters: Record<string, unknown> = {};
 
-        filter.areaId = { $in: areaIds };
+    if (query.maxNoise !== undefined) {
+        areaFilters.noise = { $lte: query.maxNoise };
     }
+
+    if (query.maxMarketDistance) {
+        const distances = query.maxMarketDistance === "walkable"
+            ? ["walkable"]
+            : query.maxMarketDistance === "short-drive"
+                ? ["walkable", "short-drive"]
+                : ["walkable", "short-drive", "far"];
+        areaFilters.marketDistance = { $in: distances };
+    }
+
+    if (query.schoolsNearBy !== undefined) {
+        areaFilters.schoolsNearBy = query.schoolsNearBy;
+    }
+
+    const areas = await AreaModel.find(areaFilters);
+    const areaIds = areas.map((area) => area._id);
+
+    filter.areaId = { $in: areaIds };
 
     const skip = (query.page - 1) * query.limit;
     const filteredListings = await ListingModel.find(filter)
