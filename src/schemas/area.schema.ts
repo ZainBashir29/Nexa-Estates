@@ -12,4 +12,5 @@ const areaSchema = z.object({
 
 export default areaSchema;
 
+
 export type Area = z.infer<typeof areaSchema>;
