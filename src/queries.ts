@@ -3,12 +3,8 @@ export const testQueries: { text: string; expected: any }[] = [
     text: "I want to rent a place in a quiet area where I can walk to the market.",
     expected: {
       purpose: "rent",
-      propertyType: null,
-      maxPrice: null,
-      minBedrooms: null,
       maxNoise: 2,
       maxMarketDistance: "walkable",
-      schoolsNearBy: null,
     },
   },
   {
@@ -16,11 +12,7 @@ export const testQueries: { text: string; expected: any }[] = [
     expected: {
       purpose: "buy",
       propertyType: "house",
-      maxPrice: null,
       minBedrooms: 3,
-      maxNoise: null,
-      maxMarketDistance: null,
-      schoolsNearBy: null,
     },
   },
   {
@@ -28,11 +20,8 @@ export const testQueries: { text: string; expected: any }[] = [
     expected: {
       purpose: "rent",
       propertyType: "flat",
-      maxPrice: null,
-      minBedrooms: null,
       maxNoise: 2,
-      maxMarketDistance: null,
-      schoolsNearBy: "true",
+      schoolsNearBy: true,
     },
   },
   {
@@ -41,10 +30,7 @@ export const testQueries: { text: string; expected: any }[] = [
       purpose: "buy",
       propertyType: "plot",
       maxPrice: 5000000,
-      minBedrooms: null,
-      maxNoise: null,
       maxMarketDistance: "short-drive",
-      schoolsNearBy: null,
     },
   },
   {
@@ -52,11 +38,8 @@ export const testQueries: { text: string; expected: any }[] = [
     expected: {
       purpose: "rent",
       propertyType: "house",
-      maxPrice: null,
-      minBedrooms: null,
       maxNoise: 1,
       maxMarketDistance: "short-drive",
-      schoolsNearBy: null,
     },
   },
   {
@@ -66,21 +49,13 @@ export const testQueries: { text: string; expected: any }[] = [
       propertyType: "flat",
       maxPrice: 8000000,
       minBedrooms: 2,
-      maxNoise: null,
-      maxMarketDistance: null,
-      schoolsNearBy: null,
     },
   },
   {
     text: "Find me a cheap place to rent close to shops and markets. I don't care about nearby schools.",
     expected: {
       purpose: "rent",
-      propertyType: null,
-      maxPrice: null,
-      minBedrooms: null,
-      maxNoise: null,
       maxMarketDistance: "walkable",
-      schoolsNearBy: "false",
     },
   },
   {
@@ -88,11 +63,10 @@ export const testQueries: { text: string; expected: any }[] = [
     expected: {
       purpose: "buy",
       propertyType: "house",
-      maxPrice: null,
       minBedrooms: 3,
       maxNoise: 2,
       maxMarketDistance: "walkable",
-      schoolsNearBy: "true",
+      schoolsNearBy: true,
     },
   },
   {
@@ -101,10 +75,8 @@ export const testQueries: { text: string; expected: any }[] = [
       purpose: "buy",
       propertyType: "plot",
       maxPrice: 3000000,
-      minBedrooms: null,
       maxNoise: 2,
       maxMarketDistance: "far",
-      schoolsNearBy: null,
     },
   },
   {
@@ -113,10 +85,15 @@ export const testQueries: { text: string; expected: any }[] = [
       purpose: "rent",
       propertyType: "flat",
       maxPrice: 40000,
-      minBedrooms: null,
       maxNoise: 2,
-      maxMarketDistance: null,
-      schoolsNearBy: "false",
     },
   },
+  // {
+  //   text: "I need a chill, quiet, and viby place to buy.",
+  //   expected: {
+  //     purpose: "buy",
+  //     maxNoise: 2,
+  //     vibe: "calm",
+  //   },
+  // },
 ];
