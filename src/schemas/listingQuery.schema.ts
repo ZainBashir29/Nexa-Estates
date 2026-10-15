@@ -13,3 +13,28 @@ export const listingQuerySchema = z.object({
 }).strict();
 
 export type ListingQuery = z.infer<typeof listingQuerySchema>;
+
+export const naturalLanguageListingQuerySchema = z.object({
+    q: z
+        .string()
+        .trim()
+        .min(1, "Search query must not be empty")
+        .max(200, "Search query must be at most 200 characters"),
+    page: z.coerce.number().int().min(1).default(1),
+    limit: z.coerce.number().int().min(1).max(50).default(20),
+}).strict();
+
+export type NaturalLanguageListingQuery = z.infer<
+    typeof naturalLanguageListingQuerySchema
+>;
+
+export type ListingFilters = Pick<
+    ListingQuery,
+    | "purpose"
+    | "propertyType"
+    | "maxPrice"
+    | "minBedrooms"
+    | "maxNoise"
+    | "maxMarketDistance"
+    | "schoolsNearBy"
+>;

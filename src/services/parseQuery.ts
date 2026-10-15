@@ -24,7 +24,15 @@ export const aiQuerySchema = listingQuerySchema
   })
   .extend({ schoolsNearBy: z.boolean().optional() });
 
-export async function parseQuery(text: string) {
+type ParseQueryResult =
+  | { ok: true; query: z.infer<typeof aiQuerySchema> }
+  | { ok: false; error: string }
+  | {
+      ok: false;
+      errors: { field: string; message: string }[];
+    };
+
+export async function parseQuery(text: string): Promise<ParseQueryResult> {
   const apiKey = process.env.GROQ_API_KEY;
 
   if (!apiKey) {
