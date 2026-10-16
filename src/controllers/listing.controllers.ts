@@ -39,6 +39,10 @@ function buildAreaQuery(query: ListingFilters) {
     areaFilters.schoolsNearBy = query.schoolsNearBy;
   }
 
+  if (query.areaName) {
+    areaFilters.name = query.areaName;
+  }
+
   return areaFilters;
 }
 
@@ -96,7 +100,4 @@ const getSearchedListings = async (_req: Request, res: Response) => {
   res.status(200).json({ interpretedAs: parsed.query, results: listings });
 };
 
-export {
-  getFilteredListings,
-  getSearchedListings,
-};
+export { getFilteredListings, getSearchedListings };
