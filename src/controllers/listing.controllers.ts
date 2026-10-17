@@ -87,6 +87,18 @@ const getSearchedListings = async (_req: Request, res: Response) => {
     return;
   }
 
+  if (parsed.unknownArea) {
+    const areas = await AreaModel.find({}, { name: 1, _id: 0 })
+      .sort({ name: 1 })
+      .lean();
+    res.status(200).json({
+      results: [],
+      notice: `No area called '${parsed.unknownArea}' in our data.`,
+      availableAreas: areas.map((area) => area.name),
+    });
+    return;
+  }
+
   if (Object.keys(parsed.query).length === 0) {
     res.status(422).json({
       message: "No filters found in that sentence.",
