@@ -93,7 +93,7 @@ const getSearchedListings = async (_req: Request, res: Response) => {
       .lean();
     res.status(200).json({
       results: [],
-      notice: `No area called '${parsed.unknownArea}' in our data.`,
+      notice: "We currently cover Sheikhupura only",
       availableAreas: areas.map((area) => area.name),
     });
     return;
