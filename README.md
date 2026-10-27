@@ -24,6 +24,7 @@ Prerequisites: Node.js, MongoDB, and a Groq API key.
    ```env
    MONGODB_URI=mongodb://127.0.0.1:27017
    GROQ_API_KEY=your_groq_api_key
+   CORS_ORIGIN=http://localhost:5173
    ```
 
    The backend appends the `nexa-estates` database name to `MONGODB_URI`. `PORT` is optional and defaults to `3000`.
