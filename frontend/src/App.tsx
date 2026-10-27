@@ -108,7 +108,10 @@ async function requestListings(
   page: number,
   signal: AbortSignal,
 ): Promise<SearchResult> {
-  const response = await fetch(buildUrl(search, page), { signal });
+  const apiBaseUrl: string = import.meta.env.VITE_API_URL ?? "";
+  const response = await fetch(`${apiBaseUrl}${buildUrl(search, page)}`, {
+    signal,
+  });
   let payload: unknown;
 
   try {
@@ -156,8 +159,10 @@ function App() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [availableAreas, setAvailableAreas] = useState<string[]>([]);
-  const [interpretedAs, setInterpretedAs] =
-    useState<Record<string, unknown> | null>(null);
+  const [interpretedAs, setInterpretedAs] = useState<Record<
+    string,
+    unknown
+  > | null>(null);
   const [hasMore, setHasMore] = useState(false);
   const [page, setPage] = useState(1);
   const [activeSearch, setActiveSearch] = useState<SearchDefinition>({
@@ -171,11 +176,7 @@ function App() {
     let isCurrent = true;
     requestRef.current = controller;
 
-    requestListings(
-      { kind: "filters", filters: {} },
-      1,
-      controller.signal,
-    )
+    requestListings({ kind: "filters", filters: {} }, 1, controller.signal)
       .then((result) => {
         if (!isCurrent) return;
         setListings(result.results);
@@ -291,7 +292,9 @@ function App() {
   return (
     <div className="site">
       <header className="site-header">
-        <a className="site-name" href="#top">Nexa Estates</a>
+        <a className="site-name" href="#top">
+          Nexa Estates
+        </a>
         <nav aria-label="Main navigation">
           <a href="#search">Search</a>
           <a href="#listings">Listings</a>
@@ -306,7 +309,9 @@ function App() {
           </p>
 
           <form className="natural-search" onSubmit={handleNaturalSearch}>
-            <label htmlFor="home-search">Describe what you are looking for</label>
+            <label htmlFor="home-search">
+              Describe what you are looking for
+            </label>
             <div className="search-controls">
               <input
                 id="home-search"
@@ -386,12 +391,16 @@ function App() {
                 >
                   <option value="">All areas</option>
                   {areaNames.map((area) => (
-                    <option key={area} value={area}>{area}</option>
+                    <option key={area} value={area}>
+                      {area}
+                    </option>
                   ))}
                 </select>
               </label>
               <div className="filter-actions">
-                <button type="submit" disabled={loading}>Apply filters</button>
+                <button type="submit" disabled={loading}>
+                  Apply filters
+                </button>
                 <button
                   className="text-button"
                   type="button"
@@ -416,7 +425,11 @@ function App() {
             {loading && <span>Searching…</span>}
           </div>
 
-          {error && <p className="message message-error" role="alert">{error}</p>}
+          {error && (
+            <p className="message message-error" role="alert">
+              {error}
+            </p>
+          )}
           {notice && <p className="message">{notice}</p>}
           {availableAreas.length > 0 && (
             <p className="message">
@@ -433,7 +446,9 @@ function App() {
           )}
 
           {loading && listings.length === 0 ? (
-            <p className="status-message" role="status">Loading listings…</p>
+            <p className="status-message" role="status">
+              Loading listings…
+            </p>
           ) : listings.length > 0 ? (
             <ul className="listing-list">
               {listings.map((listing) => (
@@ -465,7 +480,8 @@ function App() {
           ) : (
             !loading && (
               <p className="status-message">
-                No listings found. Try another description or adjust your filters.
+                No listings found. Try another description or adjust your
+                filters.
               </p>
             )
           )}
